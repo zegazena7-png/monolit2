@@ -1,0 +1,202 @@
+.scene {
+  display: grid;
+  grid-template-columns: 58fr 42fr;
+  min-height: 100svh;
+  align-items: center;
+  padding: 8vh 0;
+  gap: 0;
+}
+
+.sceneOdd {
+  grid-template-columns: 42fr 58fr;
+}
+
+.sceneOdd .imageWrapper {
+  order: 2;
+}
+
+.sceneOdd .info {
+  order: 1;
+  padding-left: 8vw;
+  padding-right: 4vw;
+}
+
+/* ── Image ── */
+
+.imageWrapper {
+  position: relative;
+  height: clamp(400px, 75vh, 900px);
+  overflow: hidden;
+  cursor: none;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+}
+
+.image {
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.imageWrapper:hover .image {
+  transform: scale(1.035);
+}
+
+/* Blueprint image layer */
+.blueprintLayer {
+  z-index: 1;
+}
+
+.blueprintImage {
+  filter: grayscale(100%) contrast(700%) brightness(220%)
+          invert(100%) sepia(100%) hue-rotate(185deg) saturate(160%);
+}
+
+.blueprintOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 25, 55, 0.55);
+  mix-blend-mode: multiply;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Blueprint grid on hover */
+.gridOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 39px,
+      rgba(255, 255, 255, 0.04) 39px,
+      rgba(255, 255, 255, 0.04) 40px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 39px,
+      rgba(255, 255, 255, 0.04) 39px,
+      rgba(255, 255, 255, 0.04) 40px
+    );
+}
+
+.imageWrapper:hover .gridOverlay {
+  opacity: 1;
+}
+
+/* ── Info block ── */
+
+.info {
+  padding: 4vh 6vw 4vh 5vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0;
+}
+
+.sceneEven .info {
+  padding-left: 6vw;
+  padding-right: 8vw;
+}
+
+.number {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 2rem;
+  opacity: 0;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 4.2rem);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 2rem;
+  opacity: 0;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 2rem;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  opacity: 0;
+}
+
+.metaDot {
+  color: var(--text-dim);
+}
+
+.description {
+  font-family: var(--font-body);
+  font-size: clamp(0.85rem, 1.1vw, 1rem);
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--text-muted);
+  max-width: 36ch;
+  opacity: 0;
+}
+
+/* ── Mobile ── */
+
+@media (max-width: 900px) {
+  .scene,
+  .sceneOdd {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    min-height: unset;
+    padding: 0;
+    padding-bottom: 8vh;
+  }
+
+  .sceneOdd .imageWrapper {
+    order: 1;
+  }
+
+  .sceneOdd .info {
+    order: 2;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .imageWrapper {
+    height: 60svh;
+    width: 100%;
+    position: relative;
+  }
+
+  .info {
+    padding: 3rem 1.5rem;
+  }
+
+  .sceneEven .info {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .description {
+    max-width: 100%;
+  }
+}
